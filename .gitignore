@@ -183,3 +183,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+_check_assets.py
+*.tmp.jpg
+

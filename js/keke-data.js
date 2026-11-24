@@ -1,0 +1,47 @@
+/**
+ * 可可猫猫馆媒体列表
+ * 来源：桌面「可可照片」文件夹
+ * type: 'image' | 'video'
+ */
+window.KEKE_MEDIA = [
+  { type: 'image', src: 'assets/keke/1795509587526.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587589.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587611.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587640.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587679.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587708.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587738.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587758.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587788.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587816.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587850.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587881.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587901.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587924.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587950.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509587980.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588013.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588042.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588066.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588095.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588141.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588168.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588196.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588217.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588228.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588255.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588287.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/1795509588330.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1775378301180.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1780388685219.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1787388163658.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1787498864760.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1787713273411.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1788596666187.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1789007467713.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1789369971153.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1789390893592.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1789390900666.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/mmexport1789390937591.jpg', caption: '可可' },
+  { type: 'image', src: 'assets/keke/wx_camera_1787311013990.jpg', caption: '可可' }
+];

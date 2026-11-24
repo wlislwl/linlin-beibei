@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>主页 · 林林 & 倍倍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner fade-page">
+      <header class="glass" style="padding:1.75rem 1.25rem;text-align:center;margin-top:1rem;">
+        <p style="margin:0 0 0.4rem;font-size:0.8rem;letter-spacing:0.22em;color:rgba(243,213,224,0.55);">OUR STORY</p>
+        <h1 class="serif gradient-text" style="font-size:clamp(2.2rem,8vw,3.2rem);margin:0 0 0.5rem;">林林 & 倍倍</h1>
+        <p style="margin:0 0 1.25rem;color:rgba(247,239,232,0.55);">从 2025.1.1 起，一直在一起</p>
+        <div style="margin-bottom:1.25rem;">
+          <div style="font-size:0.8rem;color:rgba(232,160,191,0.7);margin-bottom:0.3rem;">我们已经在一起</div>
+          <div class="serif gradient-text" style="font-size:2.8rem;font-weight:700;">
+            <span id="together-days">000</span><span style="font-size:1.1rem;margin-left:0.25rem;">天</span>
+          </div>
+        </div>
+        <div style="font-size:0.8rem;color:rgba(232,160,191,0.7);margin-bottom:0.55rem;">距离下一个纪念日</div>
+        <div class="countdown-row" id="countdown">
+          <div class="countdown-item"><div class="num gradient-text" id="d">00</div><div class="lbl">天</div></div>
+          <div class="countdown-item"><div class="num gradient-text" id="h">00</div><div class="lbl">时</div></div>
+          <div class="countdown-item"><div class="num gradient-text" id="m">00</div><div class="lbl">分</div></div>
+          <div class="countdown-item"><div class="num gradient-text" id="s">00</div><div class="lbl">秒</div></div>
+        </div>
+      </header>
+
+      <h2 class="serif gradient-text" style="text-align:center;margin:2rem 0 1rem;font-size:1.4rem;">想去哪儿逛逛</h2>
+      <nav class="nav-grid">
+        <a class="glass nav-card" href="gallery.html">
+          <div class="icon">📷</div>
+          <div>
+            <h3>沉浸相册</h3>
+            <p>全屏滑动我们的故事</p>
+          </div>
+        </a>
+        <a class="glass nav-card" href="keke.html">
+          <div class="icon">🐱</div>
+          <div>
+            <h3>可可猫猫馆</h3>
+            <p>专门放猫的图片和视频</p>
+          </div>
+        </a>
+        <a class="glass nav-card" href="map.html">
+          <div class="icon">🗺</div>
+          <div>
+            <h3>地点旅程</h3>
+            <p>厦门 · 漳州 · 昆明…</p>
+          </div>
+        </a>
+        <a class="glass nav-card" href="journey.html">
+          <div class="icon">⏳</div>
+          <div>
+            <h3>时光轴</h3>
+            <p>按日期一点点翻看</p>
+          </div>
+        </a>
+      </nav>
+
+      <footer style="text-align:center;margin-top:2.5rem;color:rgba(247,239,232,0.35);font-size:0.8rem;">
+        <p class="serif" style="margin:0;">林林 & 倍倍</p>
+        <p style="margin:0.35rem 0 0;">未完待续</p>
+        <p style="margin:0.75rem 0 0;font-size:0.7rem;line-height:1.5;opacity:0.85;">
+          背景音乐：Heartwarming — Kevin MacLeod<br>
+          （incompetech.com · CC BY）
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/journey-data.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/fx-engine.js"></script>
+  <script>
+    FX.mountPretty('full');
+    FX.mountEggs();
+    SiteFX.setupMusic();
+    SiteFX.setupLightbox();
+
+    const start = SITE_CONFIG.startDate;
+    document.getElementById('together-days').textContent = SiteFX.togetherDays(start);
+
+    function tick() {
+      const c = SiteFX.nextAnniversaryCountdown(start);
+      document.getElementById('d').textContent = String(c.days).padStart(2, '0');
+      document.getElementById('h').textContent = String(c.hours).padStart(2, '0');
+      document.getElementById('m').textContent = String(c.minutes).padStart(2, '0');
+      document.getElementById('s').textContent = String(c.seconds).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    document.querySelectorAll('a.nav-card').forEach((card) => {
+      card.addEventListener('click', (e) => {
+        FX.burstAt(e.clientX, e.clientY, 10);
+      });
+    });
+  </script>
+</body>
+</html>

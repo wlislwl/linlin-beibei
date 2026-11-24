@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>地点旅程 · 林林 & 倍倍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner fade-page">
+      <a class="back-link" href="home.html">← 回主页</a>
+      <header style="text-align:center;margin-bottom:1.5rem;">
+        <h1 class="serif gradient-text" style="font-size:2rem;margin:0 0 0.4rem;">地点旅程</h1>
+        <p style="margin:0;color:rgba(247,239,232,0.5);font-size:0.9rem;">走过的地方，串成一条路</p>
+      </header>
+
+      <div class="place-list" id="places"></div>
+    </div>
+  </div>
+
+  <script src="js/journey-data.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/fx-engine.js"></script>
+  <script>
+    FX.mountPretty('soft');
+    FX.mountEggs();
+    SiteFX.setupMusic();
+    SiteFX.setupLightbox();
+
+    const root = document.getElementById('places');
+    root.innerHTML = JOURNEY_PLACES.map((p, i) => {
+      const count = p.events.length;
+      const eventsHtml = p.events.map((e) => `
+        <div class="place-event">
+          <div style="font-size:0.75rem;color:rgba(232,160,191,0.75);">${e.date}</div>
+          <div class="serif" style="font-size:1rem;margin:0.15rem 0;">${e.title}</div>
+          <div style="font-size:0.8rem;color:rgba(247,239,232,0.5);">${e.note || ''}</div>
+          <div class="place-thumbs">
+            ${e.photos.map((src) => `<img src="${src}" alt="" loading="lazy" onclick="event.stopPropagation();openLightbox('${src}')">`).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <article class="glass place-card" data-i="${i}">
+          <h3 class="serif">${p.place}</h3>
+          <div class="place-meta">${count} 段回忆 · 点击展开</div>
+          <div class="place-detail">${eventsHtml}</div>
+        </article>
+      `;
+    }).join('');
+
+    root.querySelectorAll('.place-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const was = card.classList.contains('active');
+        root.querySelectorAll('.place-card').forEach((c) => c.classList.remove('active'));
+        if (!was) card.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

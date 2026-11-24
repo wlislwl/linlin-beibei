@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>可可猫猫馆 · 林林 & 倍倍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner fade-page">
+      <a class="back-link" href="home.html">← 回主页</a>
+      <header style="text-align:center;margin-bottom:1.5rem;">
+        <h1 class="serif gradient-text" style="font-size:2rem;margin:0 0 0.4rem;">可可猫猫馆</h1>
+        <p style="margin:0;color:rgba(247,239,232,0.5);font-size:0.9rem;">我们的猫 · 图片与视频</p>
+      </header>
+
+      <div id="keke-root"></div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="keke-lightbox">
+    <div id="keke-lightbox-body"></div>
+  </div>
+
+  <script src="js/keke-data.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/fx-engine.js"></script>
+  <script>
+    FX.mountPretty('soft');
+    FX.mountEggs();
+    SiteFX.setupMusic();
+
+    const root = document.getElementById('keke-root');
+    const media = window.KEKE_MEDIA || [];
+    const lb = document.getElementById('keke-lightbox');
+    const lbBody = document.getElementById('keke-lightbox-body');
+
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) {
+        lb.classList.remove('open');
+        lbBody.innerHTML = '';
+      }
+    });
+
+    if (!media.length) {
+      root.innerHTML = `
+        <div class="glass keke-empty">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">🐱</div>
+          <p style="margin:0 0 0.5rem;color:var(--cream);">把可可的照片和视频放进来</p>
+          <p style="margin:0;font-size:0.85rem;line-height:1.6;">
+            文件放到 <code>assets/keke/</code><br>
+            再在 <code>js/keke-data.js</code> 里登记路径<br>
+            或把本机路径发给我，我帮你复制进来
+          </p>
+        </div>
+      `;
+    } else {
+      root.innerHTML = `<div class="keke-grid">${media.map((item, i) => {
+        if (item.type === 'video') {
+          return `
+            <div class="keke-item" data-i="${i}">
+              <video src="${item.src}" muted preload="metadata" playsinline></video>
+              <div class="play-badge">▶</div>
+            </div>`;
+        }
+        return `
+          <div class="keke-item" data-i="${i}">
+            <img src="${item.src}" alt="${item.caption || '可可'}" loading="lazy">
+          </div>`;
+      }).join('')}</div>`;
+
+      root.querySelectorAll('.keke-item').forEach((el) => {
+        el.addEventListener('click', () => {
+          const item = media[+el.dataset.i];
+          if (item.type === 'video') {
+            lbBody.innerHTML = `<video src="${item.src}" controls autoplay playsinline style="max-width:100%;max-height:90vh;border-radius:0.75rem;"></video>`;
+          } else {
+            lbBody.innerHTML = `<img src="${item.src}" alt="${item.caption || '可可'}">`;
+          }
+          lb.classList.add('open');
+        });
+      });
+    }
+  </script>
+</body>
+</html>

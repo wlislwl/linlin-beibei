@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>沉浸相册 · 林林 & 倍倍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body style="background:#0d0a12;">
+  <div class="gallery-top">
+    <a class="back-link" href="home.html" style="margin:0;">← 回主页</a>
+    <span id="gallery-progress" style="font-size:0.8rem;color:rgba(247,239,232,0.55);">1 / 1</span>
+  </div>
+
+  <div class="gallery-stage" id="stage"></div>
+
+  <div class="gallery-bar">
+    <button type="button" class="btn btn-ghost" id="prevBtn" style="padding:0.55rem 1rem;">上一页</button>
+    <div class="gallery-dots" id="dots"></div>
+    <button type="button" class="btn" id="nextBtn" style="padding:0.55rem 1rem;">下一页</button>
+  </div>
+
+  <script src="js/journey-data.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/fx-engine.js"></script>
+  <script>
+    SiteFX.setupLightbox();
+    SiteFX.setupMusic();
+    FX.startAmbient({ density: 0.45 });
+    FX.startHeartRain(1400);
+    FX.mountEggs();
+
+    // 每个事件取第一张图作为主视觉，组成沉浸幻灯
+    const slides = JOURNEY_EVENTS.map((e) => ({
+      date: e.date,
+      title: e.title,
+      note: e.note || '',
+      photo: e.photos[0]
+    }));
+
+    let index = 0;
+    const stage = document.getElementById('stage');
+    const dots = document.getElementById('dots');
+    const progress = document.getElementById('gallery-progress');
+
+    stage.innerHTML = slides.map((s, i) => `
+      <div class="gallery-slide${i === 0 ? ' active' : ''}" data-i="${i}">
+        <img src="${s.photo}" alt="${s.title}" loading="${i < 2 ? 'eager' : 'lazy'}" onclick="openLightbox('${s.photo}')">
+        <div class="gallery-overlay">
+          <div class="date">${s.date}</div>
+          <h2 class="serif">${s.title}</h2>
+          <p>${s.note}</p>
+        </div>
+      </div>
+    `).join('');
+
+    dots.innerHTML = slides.map((_, i) => `<span class="${i === 0 ? 'on' : ''}"></span>`).join('');
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      stage.querySelectorAll('.gallery-slide').forEach((el, n) => {
+        el.classList.toggle('active', n === index);
+      });
+      dots.querySelectorAll('span').forEach((el, n) => {
+        el.classList.toggle('on', n === index);
+      });
+      progress.textContent = `${index + 1} / ${slides.length}`;
+    }
+
+    document.getElementById('prevBtn').onclick = () => show(index - 1);
+    document.getElementById('nextBtn').onclick = () => show(index + 1);
+
+    // 触摸滑动
+    let startX = 0;
+    stage.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) < 40) return;
+      if (dx < 0) show(index + 1);
+      else show(index - 1);
+    }, { passive: true });
+
+    // 键盘
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(index + 1);
+      if (e.key === 'ArrowLeft') show(index - 1);
+    });
+  </script>
+</body>
+</html>

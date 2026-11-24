@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>时光轴 · 林林 & 倍倍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner fade-page">
+      <a class="back-link" href="home.html">← 回主页</a>
+      <header style="text-align:center;margin-bottom:1.75rem;">
+        <h1 class="serif gradient-text" style="font-size:2rem;margin:0 0 0.4rem;">我们的历程</h1>
+        <p style="margin:0;color:rgba(247,239,232,0.5);font-size:0.9rem;">林林 & 倍倍 · 一点一滴记下来</p>
+      </header>
+
+      <div class="timeline" id="timeline"></div>
+
+      <footer style="text-align:center;margin-top:1.5rem;color:rgba(247,239,232,0.35);font-size:0.85rem;">
+        <p class="serif">未完待续…</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/journey-data.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/fx-engine.js"></script>
+  <script>
+    FX.mountPretty('soft');
+    FX.mountEggs();
+    SiteFX.setupMusic();
+    SiteFX.setupLightbox();
+
+    const root = document.getElementById('timeline');
+    root.innerHTML = JOURNEY_EVENTS.map((e) => {
+      const gridClass = e.photos.length === 1 ? 'photo-grid one' : 'photo-grid';
+      const photos = e.photos.map((src) =>
+        `<img src="${src}" alt="${e.title}" loading="lazy" onclick="openLightbox('${src}')">`
+      ).join('');
+      const note = e.note ? `<p class="note">${e.note}</p>` : '';
+      return `
+        <article class="event">
+          <div class="glass event-card">
+            <div class="date">${e.date}${e.place ? ' · ' + e.place : ''}</div>
+            <h2 class="serif">${e.title}</h2>
+            ${note}
+            <div class="${gridClass}">${photos}</div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    SiteFX.observeReveal('.event');
+  </script>
+</body>
+</html>

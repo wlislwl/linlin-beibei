@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>烟花庆祝 · 林林 & 倍倍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <style>
+    body { background: #05040a; overflow: hidden; }
+    .fw-canvas { pointer-events: auto; }
+  </style>
+</head>
+<body>
+  <canvas class="fw-canvas" id="fw"></canvas>
+  <div class="fw-ui">
+    <p style="margin:0 0 0.5rem;letter-spacing:0.2em;font-size:0.8rem;color:rgba(243,213,224,0.55);">FOR BEIBEI</p>
+    <h1 class="serif gradient-text" style="font-size:clamp(1.8rem,8vw,2.8rem);margin:0 0 0.6rem;">林林 & 倍倍</h1>
+    <p style="margin:0;color:rgba(247,239,232,0.7);max-width:18rem;line-height:1.6;">点屏幕放烟花 · 有牡丹、柳絮、心形、光环</p>
+    <div class="actions">
+      <button type="button" class="btn" id="boomBtn">再放一场</button>
+      <button type="button" class="btn btn-ghost" id="balloonBtn">放气球</button>
+      <a class="btn btn-ghost" href="home.html">回主页</a>
+    </div>
+  </div>
+
+  <script src="js/effects.js"></script>
+  <script src="js/fx-engine.js"></script>
+  <script>
+    SiteFX.setupMusic();
+    FX.startHeartRain(1100);
+    FX.startCursorTrail();
+
+    const fw = FX.createFireworks(document.getElementById('fw'));
+    document.getElementById('boomBtn').onclick = () => {
+      fw.boom();
+      FX.burstAt(window.innerWidth / 2, window.innerHeight * 0.35, 18);
+    };
+    document.getElementById('balloonBtn').onclick = () => FX.releaseBalloons(12);
+  </script>
+</body>
+</html>
